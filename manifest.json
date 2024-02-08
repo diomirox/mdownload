@@ -1,0 +1,29 @@
+{
+  "name": "M Downloader",
+  "version": "0.0.1",
+  "description": "This extension will help you to download any media file from any website.",
+  "manifest_version": 3,
+  "permissions": [
+    "scripting",
+    "activeTab",
+    "nativeMessaging",
+    "downloads",
+    "offscreen"
+  ],
+  "author": "Dio Mirox",
+  "action": {
+    "default_popup": "index.html",
+    "default_title": "M Downloader"
+  },
+  "content_scripts": [
+    {
+      "run_at": "document_end",
+      "matches": [
+        "https://*.lezhinus.com/*"
+      ],
+      "js": [
+        "content-script.js"
+      ]
+    }
+  ]
+}

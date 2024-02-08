@@ -1,0 +1,30 @@
+ release_assets:
+    name: Release assets
+    needs: create_release # we need to know the upload URL
+    runs-on: ubuntu-latest
+    steps:
+      # checkout of cource
+      - name: Checkout code
+        uses: actions/checkout@v1
+      # ... whatever build and packaging steps you need here
+      # and finally do an upload!
+        run: |
+          echo "zipping the release"
+          cd ../
+          zip -r mdownloader.zip mdownloader -x ".git/*" ".github/*"
+      - name: Upload release assets
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ needs.create_release.outputs.upload_url }}
+          # This is how it will be named on the release page. Put hatever name
+          # you like, remember that they need to be different for each platform.
+          # You can choose any build matrix parameters. For Rust I use the
+          # target triple.
+          asset_name: mdownloader.zip
+          # The path to the file you want to upload.
+          asset_path: ./mdownloader.zip
+          # probably you will need to change it, but most likely you are
+          # uploading a binary file
+          asset_content_type: application/octet-stream

@@ -1,39 +1,29 @@
 on:
-  workflow_dispatch:
-    inputs:
-      tag:
-        description: 'Tag to release'
-        required: true
-        default: 'v0.0.0'
- 
+  push:
+    # Sequence of patterns matched against refs/tags
+    tags:
+      - 'v*' # Push events to matching v*, i.e. v1.0, v20.15.10
+
+name: Create Release
+
 jobs:
-  release_assets:
-    name: Release assets
+  build:
+    name: Create Release
     runs-on: ubuntu-latest
     steps:
-      # checkout of cource
       - name: Checkout code
-        uses: actions/checkout@v1
-      # ... whatever build and packaging steps you need here
-      # and finally do an upload!
-      - name: Zipping
-        run: |
-          echo "zipping the release"
-          cd ../
-          zip -r mdownloader.zip mdownloader -x ".git/*" ".github/*"
-      - name: Upload release assets
-        uses: actions/upload-release-asset@v1
+        uses: actions/checkout@master
+      - name: Create Release
+        id: create_release
+        uses: actions/create-release@latest
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # This token is provided by Actions, you do not need to create your own token
         with:
-          upload_url: ${{ needs.create_release.outputs.upload_url }}
-          # This is how it will be named on the release page. Put hatever name
-          # you like, remember that they need to be different for each platform.
-          # You can choose any build matrix parameters. For Rust I use the
-          # target triple.
-          asset_name: mdownloader.zip
-          # The path to the file you want to upload.
-          asset_path: ./mdownloader.zip
-          # probably you will need to change it, but most likely you are
-          # uploading a binary file
-          asset_content_type: application/octet-stream
+          tag_name: ${{ github.ref }}
+          release_name: Release ${{ github.ref }}
+          body: |
+            Changes in this Release
+            - First Change
+            - Second Change
+          draft: false
+          prerelease: false

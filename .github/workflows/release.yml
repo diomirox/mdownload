@@ -6,10 +6,9 @@ on:
         required: true
         default: 'v0.0.0'
  
- jobs:
-   release_assets:
+jobs:
+  release_assets:
     name: Release assets
-    needs: create_release # we need to know the upload URL
     runs-on: ubuntu-latest
     steps:
       # checkout of cource
@@ -17,6 +16,7 @@ on:
         uses: actions/checkout@v1
       # ... whatever build and packaging steps you need here
       # and finally do an upload!
+      - name: Zipping
         run: |
           echo "zipping the release"
           cd ../

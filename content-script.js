@@ -14,8 +14,8 @@ function captureNetworkRequest(name) {
 const buttonFunction = async () => {
   let imageMap = [];
   let imagesDoc = document.getElementById("scroll-list");
-  // let total = imagesDoc.children.length;
-  let total = 3;
+  let total = imagesDoc.children.length;
+  // let total = 3;
 
   const imageTakingUntilLoad = async (i) => {
     // is have a children
@@ -51,11 +51,3 @@ chrome.runtime.onMessage.addListener(async (request, sender, sendResponse) => {
     chrome.runtime.sendMessage(request.id, { images: images });
   }
 });
-var greeting = "hola, ";
-var button = document.createElement("button");
-button.textContent = "Di hola";
-button.person_name = "Roberto";
-button.addEventListener(
-  "click", buttonFunction);
-button.style = "position: fixed; bottom: 10px; left: 10px; z-index: 1000;"
-document.body.appendChild(button);

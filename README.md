@@ -23,3 +23,8 @@
    - Click the button and allow time for all images to download. That's it!
 
 This streamlined process enables quick and efficient downloading of manga and manhwa content.
+
+---
+If you want to support:
+
+<a href="https://www.buymeacoffee.com/diomirox" target="_blank"><img src="https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png" alt="Buy Me A Coffee" style="height: 60px !important;width: 217px !important;" ></a>

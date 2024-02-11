@@ -3,20 +3,31 @@ chrome.runtime.onMessage.addListener(async (message, sender, sendResponse) => {
   // 2. A page requested user data, respond with a copy of `user`
   console.log(message);
   const images = message.images;
+  const formdata = new FormData();
   for (let i = 0; i < images.length; i++) {
     console.log(images[i]);
-    const matrix = decodeID("6019001706741760");
-    console.log(matrix);
-    const canvasImage = await decodeImages(images[i], matrix);
-    const img = new Image();
-    img.src = canvasImage;
-    document.body.appendChild(img);
+    let url = images[i];
+    let id = "";
+    const regex = /\/episodes\/(\d+)\//;
+    const match = url.match(regex);
+    if (match && match.length > 1) {
+      id = match[1];
+    }
 
-    const a = document.createElement('a');
-    a.href = canvasImage;
-    a.download = images[i].split('/').pop().split('?')[0];
-    a.click();
+    if (id) {
+      const matrix = decodeID(id);
+      url = await decodeImages(images[i], matrix);
+    }
+
+    const buffer = await fetch(url).then((r) => r.blob());
+    formdata.append('upload[]', buffer, `${i}.jpg`);
   }
+  fetch('http://localhost:8080/upload', {
+    method: 'POST',
+    body: formdata
+  }).then((res) => {
+    console.log(res);
+  });
 });
 
 class G {

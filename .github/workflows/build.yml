@@ -38,11 +38,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Check out code
-        uses: xxxxxxxxxxxxxxxx@xx
-
+        uses: actions/checkout@v2
       - name: Build
         run: zip -r ext_pack.zip extension
-
       - name: Upload Artifact
         uses: xxxxxxxxxxxxxxxxxxxxxxx@xx
         with:

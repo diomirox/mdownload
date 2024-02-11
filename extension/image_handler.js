@@ -1,9 +1,13 @@
 
 chrome.runtime.onMessage.addListener(async (message, sender, sendResponse) => {
   // 2. A page requested user data, respond with a copy of `user`
-  console.log(message);
   const images = message.images;
-  const formdata = new FormData();
+  const progress = document.createElement('div');
+
+  progress.id = 'progress';
+  progress.innerHTML = `0/${images.length}`;
+  document.body.appendChild(progress);
+
   for (let i = 0; i < images.length; i++) {
     console.log(images[i]);
     let url = images[i];
@@ -19,15 +23,18 @@ chrome.runtime.onMessage.addListener(async (message, sender, sendResponse) => {
       url = await decodeImages(images[i], matrix);
     }
 
+    const formdata = new FormData();
     const buffer = await fetch(url).then((r) => r.blob());
     formdata.append('upload[]', buffer, `${i}.jpg`);
+    await fetch('http://localhost:8080/upload', {
+      method: 'POST',
+      body: formdata
+    }).then((res) => {
+      console.log(res);
+    });
+    var progressDiv = document.getElementById('progress');
+    progressDiv.innerHTML = `${i + 1}/${images.length}`;
   }
-  fetch('http://localhost:8080/upload', {
-    method: 'POST',
-    body: formdata
-  }).then((res) => {
-    console.log(res);
-  });
 });
 
 class G {

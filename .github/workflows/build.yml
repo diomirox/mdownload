@@ -33,11 +33,6 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: binary-${{ matrix.os }}-${{ matrix.version }}
-          path: |
-            if [ "${{ matrix.os }}" == "windows-latest" ]; then
-              echo "./server/server.exe"
-            else
-              echo "./server/server"
-            fi
+          path: server/server
   
   

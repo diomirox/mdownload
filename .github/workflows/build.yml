@@ -42,7 +42,7 @@ jobs:
       - name: Build
         run: zip -r ext_pack.zip extension
       - name: Upload Artifact
-        uses: xxxxxxxxxxxxxxxxxxxxxxx@xx
+        uses: actions/upload-artifact@v4
         with:
           name: ext_pack
           path: ext_pack.zip

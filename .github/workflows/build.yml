@@ -37,7 +37,7 @@ jobs:
             if [ "${{ matrix.os }}" == "windows-latest" ]; then
               echo "./server/server.exe"
             else
-              echo "./server"
+              echo "./server/server"
             fi
   
   

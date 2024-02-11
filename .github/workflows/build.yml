@@ -34,17 +34,5 @@ jobs:
           path: |
             server/server
             server/server.exe
-  build_static_files:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Check out code
-        uses: actions/checkout@v2
-      - name: Build
-        run: zip -r ext_pack.zip extension
-      - name: Upload Artifact
-        uses: actions/upload-artifact@v4
-        with:
-          name: ext_pack
-          path: ext_pack.zip
-  
+            extension/*
   

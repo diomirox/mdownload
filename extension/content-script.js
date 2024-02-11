@@ -6,7 +6,6 @@ function captureNetworkRequest(name) {
 
       if (capture_resource[i].name.includes(name))
         capture_network_request.push(capture_resource[i].name)
-
     }
   }
   return capture_network_request;

@@ -1,0 +1,46 @@
+name: Build
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  build:
+    strategy:
+      matrix:
+        os: [ubuntu-latest, macos-latest, windows-latest]
+        go_version: [1.22]
+
+    runs-on: ${{ matrix.os }}
+
+    steps:
+      - name: Set up Go
+        uses: actions/setup-go@v2
+        with:
+          go-version: ${{ matrix.go_version }}
+
+      - name: Check out code
+        uses: actions/checkout@v2
+
+      - name: Build
+        run: go build
+
+      - name: Test
+        run: go test ./...
+
+      - name: Upload Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: binary-${{ matrix.os }}-${{ matrix.version }}
+          path: |
+            if [ "${{ matrix.os }}" == "windows-latest" ]; then
+              echo "./server/server.exe"
+            else
+              echo "./server"
+            fi
+  
+  

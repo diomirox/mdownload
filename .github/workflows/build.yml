@@ -33,6 +33,8 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: binary-${{ matrix.os }}-${{ matrix.version }}
-          path: server/server
+          path: |
+            server/server
+            server/server.exe
   
   

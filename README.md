@@ -2,7 +2,7 @@
 
 ## Installation
 
-1. **Download Extension Package:** [Download Asset v0.1.0](https://github.com/diomirox/mdownload/releases/tag/v0.1.0)
+1. **Download Extension Package:** [Download Asset v0.2.0](https://github.com/diomirox/mdownload/releases/tag/v0.2.0)
 
 2. **Unzip Package:** Extract the contents to an empty directory.
 

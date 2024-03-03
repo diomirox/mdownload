@@ -1,3 +1,4 @@
+let isShift = false;
 function captureNetworkRequest(name) {
   var capture_network_request = [];
   var capture_resource = performance.getEntriesByType("resource");
@@ -19,6 +20,7 @@ const buttonFunction = async () => {
 
   const imageTakingUntilLoad = async (i) => {
     // is have a children
+    let imgName = isShift ? i + 1 : i;
     if (imagesDoc.children[i].children.length > 0) {
       // children is a img or canvas
       switch (imagesDoc.children[i].children[0].tagName) {
@@ -26,7 +28,7 @@ const buttonFunction = async () => {
           imageMap[i] = imagesDoc.children[i].children[0].src;
           break;
         case "CANVAS":
-          let image = captureNetworkRequest(`${i}.webp`);
+          let image = captureNetworkRequest(`${imgName}.webp`);
           if (image.length > 0) {
             let url = image[0];
             let id = "";
@@ -49,6 +51,8 @@ const buttonFunction = async () => {
     if (!imageMap[i]) await imageTakingUntilLoad(i);
   }
   // auto scroll to load all images
+
+
   for (let i = 0; i < total; i++) {
     imagesDoc.children[i].scrollIntoView();
     await imageTakingUntilLoad(i);
@@ -57,7 +61,7 @@ const buttonFunction = async () => {
     const buffer = await fetch(imageMap[i]).then((r) => r.blob());
     const url = window.location.href;
     const [comic, ep] = url.split("/").slice(-2);
-    formdata.append('upload[]', buffer, `${i}.png`);
+    formdata.append('upload[]', buffer, `${(i + 1).toString().padStart(3, '0')}.png`);
     formdata.append('comic', comic);
     formdata.append('ep', ep);
     await fetch('http://localhost:8080/upload', {
@@ -72,6 +76,11 @@ const buttonFunction = async () => {
 chrome.runtime.onMessage.addListener(async (request, sender, sendResponse) => {
   sendResponse({ farewell: "recived" });
   if (request.greeting === "hello") {
+    let list = document.getElementById("scroll-list").children;
+    if (list[0] && list[0].children[0].tagName === "CANVAS") {
+      isShift = true;
+    }
+    console.log("isShift", isShift);
     const images = await buttonFunction();
     chrome.runtime.sendMessage(request.id, { images: images });
   }

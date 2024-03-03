@@ -15,11 +15,15 @@ func uploadFiles(c *gin.Context) {
 	c.Writer.Header().Set("Access-Control-Allow-Methods", "POST, OPTIONS, GET, PUT")
 	// Multipart form
 	form, _ := c.MultipartForm()
+	comic := form.Value["comic"][0]
+	ep := form.Value["ep"][0]
 	files := form.File["upload[]"]
 
 	for _, file := range files {
 		log.Println(file.Filename)
-		c.SaveUploadedFile(file, "uploads/"+file.Filename)
+		// Upload the file to specific dst.
+		c.SaveUploadedFile(file, "uploads/"+comic+"/"+ep+"/"+file.Filename)
+
 	}
 	c.String(http.StatusOK, fmt.Sprintf("%d files uploaded!", len(files)))
 }

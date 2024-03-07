@@ -1,4 +1,5 @@
 let isShift = false;
+let reqId = "";
 function captureNetworkRequest(name) {
   var capture_network_request = [];
   var capture_resource = performance.getEntriesByType("resource");
@@ -70,19 +71,22 @@ const buttonFunction = async () => {
     }).then((res) => {
       console.log(res);
     });
+
+    chrome.runtime.sendMessage(reqId, { count: i, total });
   }
   return imageMap;
 };
 chrome.runtime.onMessage.addListener(async (request, sender, sendResponse) => {
   sendResponse({ farewell: "recived" });
-  if (request.greeting === "hello") {
+  const url = window.location.href;
+  if (request.greeting === "hello" && url.includes("lezhinus.com")) {
     let list = document.getElementById("scroll-list").children;
     if (list[0] && list[0].children[0].tagName === "CANVAS") {
       isShift = true;
     }
+    reqId = request.id;
     console.log("isShift", isShift);
-    const images = await buttonFunction();
-    chrome.runtime.sendMessage(request.id, { images: images });
+    await buttonFunction();
   }
 });
 

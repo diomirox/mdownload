@@ -8,7 +8,8 @@
     "activeTab",
     "nativeMessaging",
     "downloads",
-    "offscreen"
+    "offscreen",
+    "webRequest"
   ],
   "author": "Dio Mirox",
   "action": {
@@ -19,11 +20,21 @@
     {
       "run_at": "document_end",
       "matches": [
-        "https://*.lezhinus.com/*"
+        "https://*.lezhinus.com/*",
+        "https://*.bomtoon.com/*"
       ],
       "js": [
-        "content-script.js"
+        "lezhinus.js",
+        "bomtoon.js"
       ]
     }
-  ]
+  ],
+  "host_permissions": [
+    "https://*.lezhinus.com/*",
+    "https://*.bomtoon.com/*",
+    "*://*.balcony.studio/*"
+  ],
+  "background": {
+    "service_worker": "background.js"
+  }
 }

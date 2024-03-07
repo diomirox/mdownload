@@ -2,7 +2,7 @@
 
 ## Installation
 
-1. **Download Extension Package:** [Download Asset v0.2.0](https://github.com/diomirox/mdownload/releases/tag/v0.2.0)
+1. **Download Extension Package:** [Download Asset v0.3.0](https://github.com/diomirox/mdownload/releases/tag/v0.3.0)
 
 2. **Unzip Package:** Extract the contents to an empty directory.
 
@@ -14,7 +14,7 @@
 
 1. **Run Server:** Start the server.
 
-2. **Open Browser:** Load the extension and navigate to the manga URL, e.g., [https://www.lezhinus.com/en/comic/bjalex_en/01](https://www.lezhinus.com/en/comic/bjalex_en/01).
+2. **Open Browser:** Load the extension and navigate to the manga URL, e.g., [https://www.lezhinus.com/en/comic/bjalex_en/01](https://www.lezhinus.com/en/comic/bjalex_en/01),  [https://www.bomtoon.com/viewer/heartcrush/1](https://www.bomtoon.com/viewer/heartcrush/1).
 
 3. **Access Extension:** Open the extension interface.
 
@@ -23,6 +23,14 @@
    - Click the button and allow time for all images to download. That's it!
 
 This streamlined process enables quick and efficient downloading of manga and manhwa content.
+
+## Compatible Platforms:
+
+- [Lezhinus](https://www.lezhinus.com)
+- [Bomtoon](https://www.bomtoon.com)
+
+If you'd like to suggest adding support for a new provider, please [create an issue](https://github.com/diomirox/mdownload/issues/new).
+
 
 ---
 If you want to support:

@@ -12,7 +12,8 @@ function imgready(img) {
 }
 
 const bomtoonRead = async () => {
-  const images = document.querySelectorAll('[class^="ScrollImageContents__ItemContainer"]');
+  let images = document.querySelectorAll('[class^="ScrollImageContents__ItemContainer"]');
+  if (images.length === 0) images = document.querySelectorAll('[class^="sc-fff4cb82-0"]');
   const total = images.length;
   const url = window.location.href;
   const [comic, ep] = url.split("/").slice(-2);

@@ -21,17 +21,20 @@
       "run_at": "document_end",
       "matches": [
         "https://*.lezhinus.com/*",
-        "https://*.bomtoon.com/*"
+        "https://*.bomtoon.com/*",
+        "https://*.ridibooks.com/*"
       ],
       "js": [
         "lezhinus.js",
-        "bomtoon.js"
+        "bomtoon.js",
+        "ridi.js"
       ]
     }
   ],
   "host_permissions": [
     "https://*.lezhinus.com/*",
     "https://*.bomtoon.com/*",
+    "https://*.ridibooks.com/*",
     "*://*.balcony.studio/*"
   ],
   "background": {
